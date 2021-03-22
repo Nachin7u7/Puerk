@@ -4,6 +4,49 @@ generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
 
 Model:
 	greetings+=Greeting*;
-	
+
 Greeting:
 	'Hello' name=ID '!';
+
+//tipos de datos
+Cadena:
+	"(" "define" name=ID (value=STRING)? ")";
+
+Entero:
+	"(" "define" name=ID (value=INT)? ")";
+
+Doble:
+	"(" "define" name=ID (value=Double)? ")";
+
+Double:
+	INT ('.' INT)? ("e+" INT)?;
+
+Booleano:
+	"(" "define" name=ID (value=("#t" | "#f"))?;
+
+//operaciones con int y doubles
+Suma:
+	"(" "+" name1=ID (value1=(INT | Double))? name2=ID (value2=(INT | Double))? ")";
+
+Resta:
+	"(" "-" name1=ID (value1=(INT | Double))? name2=ID (value2=(INT | Double))? ")";
+
+Mul:
+	"(" "*" name1=ID (value1=(INT | Double))? name2=ID (value2=(INT | Double))? ")";
+
+Div:
+	"(" "/" name1=ID (value1=(INT | Double))? name2=ID (value2=(INT | Double))? ")";
+
+// operaciones con strings
+Concatenar:
+	{Concatenar} "(" "string-append" (value1=STRING)? (value2=STRING)? ")";
+
+Imprimir:
+	{Imprimir} "(" "printf" (value=STRING)? ")";
+
+CompararStrings:
+	{CompararStrings} "(" "string-ci=?" (value1=STRING)? (value2=STRING)? ")";
+
+Lenght:
+	{Lenght} "(" "string-length" (value=STRING)? ")";
+	
